@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /*
 Module Name: System Limits
 Description: Simple global limits for core Perfex resources (Leads, Staff, Customers, Proposals, Estimates, Invoices, Projects, Tasks, Media).
-Version: 1.1.3
+Version: 1.1.4
 Author: System Limits Clean
 */
 
@@ -62,7 +62,7 @@ function system_limits_ensure_table($force = false)
         return;
     }
 
-    $table = db_prefix() . 'system_limits';
+    $table = $CI->db->dbprefix('system_limits');
 
     if (!$force && $CI->db->table_exists($table)) {
         return;
@@ -82,7 +82,7 @@ function system_limits_ensure_table($force = false)
         $CI->dbforge->add_field($fields);
         $CI->dbforge->add_key('id', true);
         $CI->dbforge->add_key('resource', false, true);
-        $CI->dbforge->create_table($table, true);
+        $CI->dbforge->create_table('system_limits', true);
     }
 
     // Ensure updated_at column exists (older installs)
